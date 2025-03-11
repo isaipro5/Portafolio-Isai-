@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Bree Serif', serif;
+        }
+
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --tertiary: #57a91d;
+        }
+
+        header {
+            background-color: var(--primary);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        header h1 {
+            color: var(--secondary);
+            animation: slideUp 1s ease;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--secondary);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--tertiary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background-color: var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 65vh;
+            padding: 0 10%;
+        }
+
+        .hero-text h2 {
+            font-size: 150px;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .hero img {
+            width: 400px;
+            height: auto;
+        }
+
+        section {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .black-bg {
+            background-color: var(--primary);
+            color: var(--secondary);
+        }
+
+        .white-bg {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 36px;
+            color: var(--tertiary);
+            animation: slideUp 1s ease;
+        }
+
+        .about p {
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 0 auto;
+            animation: slideUp 1s ease;
+        }
+
+        .certificates-content {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideUp 1s ease;
+        }
+
+        .certificates img {
+            width: 600px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .certificates img:hover {
+            transform: scale(1.05);
+        }
+
+        .skills-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            animation: slideUp 1s ease;
+        }
+
+        .skills img {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .skills img:hover {
+            transform: scale(1.1);
+        }
+
+        .experience-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            animation: slideUp 1s ease;
+            color: #ffffff;
+        }
+
+        .exp-box {
+            background-color: #000000;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            animation: slideUp 1s ease;
+        }
+
+        .exp-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.2);
+        }
+
+        .portfolio {
+            padding: 30px;
+            background-color: var(--primary);
+            color: var(--secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            animation: slideUp 1s ease;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-item {
+            min-width: 300px;
+            background-color: #2A3B5A;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.2);
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .carousel-item a {
+            color: var(--tertiary);
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(46, 125, 50, 0.8);
+            color: var(--secondary);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background-color: var(--tertiary);
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        .social-content {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            animation: slideUp 1s ease;
+        }
+
+        .social a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 18px;
+            background-color: var(--tertiary);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social a:hover {
+            background-color: #1B5E20;
+            transform: translateY(-3px);
+        }
+
+        .contact-info {
+            margin-bottom: 10px;
+            animation: slideUp 1s ease;
+        }
+
+        .contact-info p:first-child {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .email-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .email-container span {
+            font-size: 18px;
+            background-color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 2px solid var(--tertiary);
+            color: var(--tertiary);
+            transition: all 0.3s ease;
+        }
+
+        .email-container span:hover {
+            background-color: var(--tertiary);
+            color: var(--secondary);
+        }
+
+        .copy-btn {
+            padding: 6px 12px;
+            background-color: var(--tertiary);
+            color: var(--secondary);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: #1B5E20;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: var(--secondary);
+            text-align: center;
+            padding: 15px;
+            animation: slideUp 1s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            nav .menu-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: linear-gradient(135deg, var(--primary), #2A3B5A);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 15px;
+                border-bottom: 3px solid var(--tertiary);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            nav.active .menu-links {
+                display: flex;
+            }
+
+            nav a {
+                margin: 10px 0;
+                padding: 8px;
+                background-color: rgba(245, 246, 245, 0.05);
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+
+            nav a:hover {
+                background-color: rgba(245, 246, 245, 0.1);
+                color: var(--secondary);
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                height: auto;
+                padding: 20px;
+            }
+
+            .hero-text h2 {
+                font-size: 60px;
+            }
+
+            .hero img {
+                width: 100%;
+                max-width: 300px;
+                margin-top: 15px;
+            }
+
+            .certificates img {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .carousel-item {
+                min-width: 250px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Portafolio</h1>
+        <nav>
+            <span class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+            <span class="menu-links">
+                <a href="#certificates">Certificados</a>
+                <a href="#skills">Habilidades</a>
+                <a href="#experience">Experiencia</a>
+                <a href="#portfolio">Portafolio</a>
+                <a href="#social">Redes</a>
+            </span>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <section class="hero-text">
+            <h2>ISAI</h2>
+            <h2>QUISPE</h2>
+        </section>
+        <img src="imagenes/Diseño sin título (12) (1).png" alt="Profile">
+    </section>
+
+    <section class="about black-bg" id="about">
+        <h2>SOBRE MÍ</h2>
+        <p>Soy Isai, estudiante de Desarrollo Web con una gran pasión por la creación de soluciones digitales. 
+            Me considero una persona curiosa y autodidacta, siempre buscando mejorar mis habilidades y mantenerme actualizado 
+            en las últimas tendencias tecnológicas. 
+            Mi enfoque está en desarrollar aplicaciones funcionales y eficientes, con un fuerte compromiso 
+            por el detalle y la experiencia del usuario.
+        </p>
+    </section>
+
+    <section class="certificates white-bg" id="certificates">
+        <h2>CERTIFICADOS</h2>
+        <section class="certificates-content">
+            <img src="imagenes/certificado1.png" alt="Certificado 1">
+            <img src="imagenes/certificado2.png" alt="Certificado 2">
+        </section>
+    </section>
+
+    <section class="skills black-bg" id="skills">
+        <h2>HABILIDADES</h2>
+        <section class="skills-content">
+            <img src="imagenes/1.png" alt="Habilidad 1">
+            <img src="imagenes/2.png" alt="Habilidad 2">
+            <img src="imagenes/3.png" alt="Habilidad 3">
+            <img src="imagenes/4.png" alt="Habilidad 4">
+            <img src="imagenes/5.png" alt="Habilidad 5">
+            <img src="imagenes/6.png" alt="Habilidad 6">
+            <img src="imagenes/7.png" alt="Habilidad 7">
+            <img src="imagenes/8.png" alt="Habilidad 8">
+            <img src="imagenes/9.png" alt="Habilidad 9">
+            <img src="imagenes/10.png" alt="Habilidad 10">
+            <img src="imagenes/11.png" alt="Habilidad 11">
+            <img src="imagenes/12.png" alt="Habilidad 12">
+        </section>
+    </section>
+
+    <section class="experience white-bg" id="experience">
+        <h2>EXPERIENCIA</h2>
+        <section class="experience-content">
+            <article class="exp-box">Ayudante de Ventas
+                Praia Shoes 2023 - 2024
+                Asistencia a clientes en la tienda, ofreciendo un servicio personalizado y recomendaciones de productos.
+                Organización y reposición de inventario, asegurando la correcta presentación de los productos.
+                Manejo de caja y gestión de pagos.
+            </article>
+            <article class="exp-box">Ventas y Marketing
+                JohaShoes 2020 - Actualidad
+                Atención al cliente, brindando facilitando ventas.
+                Creación y edición de contenido visual (videos, fotos) para redes sociales y campañas publicitarias.
+                Desarrollo de estrategias de marketing digital para aumentar la visibilidad y las ventas de la tienda.
+            </article>
+            <article class="exp-box">Diseñador y Marketing
+                Óptica 2020 - Actualidad
+                Diseño gráfico y creación de contenido visual para campañas promocionales y publicaciones en redes sociales.
+                Edición de videos para la promoción de productos y servicios.
+                Gestión de estrategias de marketing digital para mejorar la presencia online de la óptica.
+            </article>
+        </section>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <h2>PORTAFOLIO</h2>
+        <section class="carousel-container">
+            <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">❮</button>
+            <section class="carousel" id="carousel">
+                <article class="carousel-item">
+                    <img src="imagenes/20.png" alt="Proyecto 1">
+                    <a href="https://ddec4025-fde8-4c75-9877-250c0db21e32-00-47ekoprznh3z.riker.replit.dev/" target="_blank">Ver proyecto</a>
+                </article>
+                <article class="carousel-item">
+                    <img src="imagenes/30.png" alt="Proyecto 2">
+                    <a href="#">Ver proyecto</a>
+                </article>
+                <article class="carousel-item">
+                    <img src="imagenes/40.png" alt="Proyecto 3">
+                    <a href="#">Ver proyecto</a>
+                </article>
+            </section>
+            <button class="carousel-btn next-btn" onclick="moveCarousel(1)">❯</button>
+        </section>
+    </section>
+
+    <section class="social white-bg" id="social">
+        <h2>REDES</h2>
+        <section class="contact-info">
+
+            <section class="email-container">
+                <span>isaiquispe06@gmail.com</span>
+                <button class="copy-btn" onclick="copyEmail()">Copiar</button>
+            </section>
+        </section>
+        <nav class="social-content">
+            <a href="https://youtube.com" target="_blank">Youtube</a>
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+            <a href="https://wa.me/1234567890" target="_blank">Whatsapp</a>
+            <a href="https://linkedin.com" target="_blank">Linkedin</a>
+        </nav>
+    </section>
+
+    <footer>
+        <p>Isai Quispe</p>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        const carousel = document.getElementById('carousel');
+        let currentIndex = 0;
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        function copyEmail() {
+            navigator.clipboard.writeText('isaiquispe06@gmail.com');
+            alert('Correo copiado al portapapeles');
+        }
+
+        function moveCarousel(direction) {
+            const items = document.querySelectorAll('.carousel-item');
+            const totalItems = items.length;
+            const itemWidth = items[0].offsetWidth + 20; // Incluye márgenes
+
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = totalItems - 1;
+            if (currentIndex >= totalItems) currentIndex = 0;
+
+            carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        }
+    </script>
+</body>
+</html>
